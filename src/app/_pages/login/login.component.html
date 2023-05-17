@@ -1,0 +1,28 @@
+<mat-grid-list cols="1" rowHeight="8:1" data-aos="fade-up" :data-aos-duration='600'>
+    <mat-grid-tile><h1>Login</h1></mat-grid-tile>
+</mat-grid-list>
+<form novalidate (ngSubmit)="login()" [formGroup]="fg"  data-aos="fade-up" :data-aos-duration='800'>
+    <div>
+        <mat-form-field hintLabel="E.g. pat@example.com" appearance="fill">
+            <mat-label>Enter your email</mat-label>
+            <input matInput placeholder="pat@example.com" formControlName="email" required />
+            <mat-error *ngIf="fg?.get('email')?.errors?.required">You must enter a value</mat-error>
+            <mat-error *ngIf="fg?.get('email')?.errors?.email">Not a valid email</mat-error>
+        </mat-form-field>
+    </div>
+    <div>
+        <mat-form-field appearance="fill">
+            <mat-label>Enter your password</mat-label>
+            <input matInput type="password" formControlName="password" required>
+            <!-- <input matInput [type]="hideMe ? 'password' : 'text'" formControlName="password" required> -->
+            <mat-error *ngIf="fg?.get('password')?.errors?.required">You must enter a value</mat-error>
+            <!-- <button mat-icon-button matSuffix (click)="hideMe = !hideMe" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hideMe">
+            <mat-icon>{{hideMe ? 'visibility_off' : 'visibility'}}</mat-icon>
+            </button> -->
+        </mat-form-field>
+    </div>
+    <div>
+        <button mat-raised-button color="primary">Login</button>
+    </div>
+
+</form>

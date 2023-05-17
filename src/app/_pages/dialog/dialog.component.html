@@ -1,0 +1,110 @@
+<mat-grid-list cols="2" rowHeight="4:1" data-aos="fade-up" :data-aos-duration='600'>
+  <mat-grid-tile><h2 mat-dialog-title>{{header}}</h2></mat-grid-tile>
+  <mat-grid-tile>
+    <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="home"></mat-icon>
+      <!-- <button mat-raised-button mat-button color="primary" (click)="openDialog('add', false)">Edit</button> -->
+  </mat-grid-tile>
+</mat-grid-list>
+
+<mat-dialog-content class="mat-typography" data-aos="fade-up" :data-aos-duration='900'>
+  <form novalidate (ngSubmit)="save()" [formGroup]="fg">
+    <div>
+      <h5>Fill Details</h5>
+      <mat-divider></mat-divider>
+      <br />
+      <div>
+        <mat-form-field hintLabel="E.g. pat@example.com" appearance="fill">
+          <mat-label>Enter your email</mat-label>
+          <input matInput placeholder="pat@example.com" formControlName="email" required />
+          <mat-error *ngIf="fg?.get('email')?.errors?.required">You must enter a value</mat-error>
+          <mat-error *ngIf="fg?.get('email')?.errors?.email">Not a valid email</mat-error>
+        </mat-form-field>
+          <mat-form-field hintLabel="E.g. Book, DVD, Furniture" appearance="fill">
+            <mat-label>Select Product Type</mat-label>
+            <mat-select required formControlName="productType" (ngModelChange)="productTypeChange()">
+              <mat-option *ngFor="let row of productTypeList; let i = index" :value="{{row?.name}}">{{row?.name}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+      </div>
+      <div *ngIf="showMoreCtrls">
+        <ng-container *ngFor="let row of moreCtrlsList; let i = index">
+          <mat-form-field :hintLabel={{row?.hintLabel}} appearance="fill">
+            <mat-label>Enter {{row?.name}}</mat-label>
+            <input matInput #number maxlength="4" :placeholder={{row?.placeholder}} :formControlName={{row?.name}} required />
+            <mat-hint align="end">{{number.value.length}}/4</mat-hint>
+            <mat-error *ngIf="fg?.get('{{row?.name}}')?.errors?.required">{{row?.errOne}}</mat-error>
+            <mat-error *ngIf="fg?.get('{{row?.name}}')?.errors?.range">{{row?.errTwo}}</mat-error>
+          </mat-form-field>
+        </ng-container>
+      </div>
+      <h5>Product Details</h5>
+      <mat-divider></mat-divider>
+      <br />
+      <div>
+        <mat-form-field hintLabel="Max 22 characters" appearance="fill">
+          <mat-label>Enter Product Name</mat-label>
+          <input matInput #name maxlength="22" placeholder="E.g. Leo" formControlName="name" required />
+          <mat-hint align="end">{{name.value.length}}/22</mat-hint>
+          <mat-error *ngIf="fg?.get('name')?.errors?.required">Please enter product name</mat-error>
+          <mat-error *ngIf="fg?.get('name')?.errors?.minlength">Minimum 3 characters required</mat-error>
+        </mat-form-field>
+        <mat-form-field hintLabel="Please enter price($)" appearance="fill">
+          <mat-label>Enter Price</mat-label>
+          <input matInput #price maxlength="7" placeholder="E.g. 42450" formControlName="price" required />
+          <mat-hint align="end">{{price.value.length}}/7</mat-hint>
+          <mat-error *ngIf="fg?.get('price')?.errors?.required">Please enter price</mat-error>
+          <mat-error *ngIf="fg?.get('price')?.errors?.range">Enter between $1-$99,99,999</mat-error>
+        </mat-form-field>
+        <mat-form-field hintLabel="Max 16 characters" appearance="fill">
+          <mat-label>Enter SKU</mat-label>
+          <input matInput #sku maxlength="16" placeholder="E.g. NYC45PK" formControlName="sku" required>
+          <mat-hint align="end">{{sku.value.length}}/16</mat-hint>
+          <mat-error *ngIf="fg?.get('sku')?.errors?.required">Please enter SKU</mat-error>
+          <mat-error *ngIf="fg?.get('sku')?.errors?.minlength">Minimum 3 characters required</mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+    <div>
+      <h5>About Seller</h5>
+      <mat-divider></mat-divider>
+      <br />
+      <div>
+        <mat-form-field :hintLabel="Please enter description" appearance="fill" style="min-width:100%;">
+          <mat-label>Description</mat-label>
+          <textarea matInput #description rows="6" maxlength="500" formControlName="description" required></textarea>
+          <mat-hint align="end">{{description.value.length}}/500</mat-hint>
+          <mat-error *ngIf="fg?.get('description')?.errors?.required">Please enter Description</mat-error>
+          <mat-error *ngIf="fg?.get('description')?.errors?.minlength">Minimum 50 characters required</mat-error>        </mat-form-field>
+      </div>
+      <div>
+        <mat-form-field :hintLabel="E.g. 935, Pennsylvania, USA" appearance="fill">
+          <mat-label>Address</mat-label>
+          <input matInput #address maxlength="120" placeholder="E.g. 935, Pennsylvania, USA"  formControlName="address" required />
+          <mat-hint align="end">{{address.value.length}}/120</mat-hint>
+          <mat-error *ngIf="fg?.get('address')?.errors?.required">Please enter Address</mat-error>
+        </mat-form-field>
+        <mat-form-field :hintLabel="E.g. USA" appearance="fill">
+          <mat-label>Select Country</mat-label>
+          <mat-select formControlName="country">
+            <mat-option value="USA" selected="selected">USA</mat-option>
+            <!-- <mat-option value="INDIA">INDIA</mat-option> -->
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field :hintLabel="E.g. 9599892417" appearance="fill" floatLabel="always">
+          <mat-label>Phone Number</mat-label>
+          <input matInput #phone maxlength="10" placeholder="E.g. 9599892417" formControlName="phone" required>
+          <mat-hint align="end">{{phone.value.length}}/10</mat-hint>
+          <mat-error *ngIf="fg?.get('phone')?.errors?.required">Please enter Mobile</mat-error>
+          <mat-error *ngIf="fg?.get('phone')?.errors?.range">Please Enter a valid mobile</mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+  </form>
+</mat-dialog-content>
+<mat-divider></mat-divider>
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Cancel</button>
+  <button mat-button *ngIf="hideSave" color="primary" cdkFocusInitial (click)="edit()">Edit</button>
+  <button mat-button *ngIf="!hideSave" [mat-dialog-close]=isSuccess color="primary" cdkFocusInitial (click)="save()">Save</button>
+  <button mat-button *ngIf="hideSave" [mat-dialog-close]=isSuccess color="primary" cdkFocusInitial (click)="update()">update</button>
+</mat-dialog-actions>

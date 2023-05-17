@@ -1,0 +1,9 @@
+div {
+    margin-bottom: 15px;
+}
+p.invalid-feedback {
+    padding: 0 14px 0 0px;
+    & span {
+        color: #f44336;
+    }
+}
