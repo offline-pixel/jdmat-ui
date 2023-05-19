@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpEvent, HttpEventType } from '@angular/common/http';
+import {MatSnackBar} from '@angular/material/snack-bar';
 import { BehaviorSubject } from 'rxjs';
 import { ApiService } from '../_api/api.service';
 import { Router } from '@angular/router';
@@ -25,7 +26,11 @@ export class LogicService {
 
   $hideDialog = new BehaviorSubject<any>(0)
   $productList = new BehaviorSubject<any>(0)
-  constructor( private _api: ApiService, private _route: Router ) { }
+  constructor(
+    private _api: ApiService,
+    private _route: Router,
+    private _snackBar: MatSnackBar
+    ) { }
   
   logic( data: any ) {
     console.log(data)
@@ -37,11 +42,16 @@ export class LogicService {
         this.$productList.next({ arr, loaded: 1, _route: '' })
         if (arr.a == 'login') {
           this._route.navigate(['/list-product'])
+        } else if (data.func == 'updateProduct') {
+          location.reload();
         }
       }
     }, (err: any) => {
       this.$hideDialog.next(false)
-      this._route.navigate(['/login'])
+      this._snackBar.open(err.error.error, 'Okay');
+      if (data.func == 'login'){
+        this._route.navigate(['/login'])
+      }
     })
   }
 }

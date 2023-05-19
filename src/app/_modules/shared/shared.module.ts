@@ -20,13 +20,12 @@ import { MatInputModule } from '@angular/material/input';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
-import {MatSnackBarModule} from '@angular/material/snack-bar';
 
 const material = [
   MatSlideToggleModule, MatButtonModule, MatGridListModule, MatTableModule,
   MatIconModule, MatPaginatorModule, MatDialogModule, MatSelectModule,
   MatFormFieldModule, MatRippleModule, MatInputModule, MatDividerModule, MatCheckboxModule
-  ,MatProgressSpinnerModule, MatSnackBarModule
+  ,MatProgressSpinnerModule, 
 ]
 
 @NgModule({

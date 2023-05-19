@@ -13,6 +13,8 @@ import { LogicService } from './_services/_logic/logic.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SharedModule } from './_modules/shared/shared.module';
 
+import {MatSnackBarModule, MAT_SNACK_BAR_DEFAULT_OPTIONS} from '@angular/material/snack-bar';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -22,12 +24,14 @@ import { SharedModule } from './_modules/shared/shared.module';
     AppRoutingModule,
     HttpClientModule,
     BrowserAnimationsModule,
-    SharedModule
+    SharedModule,
+    MatSnackBarModule
   ],
   providers: [
     ApiService,
     LogicService,
-    { provide: HTTP_INTERCEPTORS, useClass: StatusInterceptor, multi: true }
+    { provide: HTTP_INTERCEPTORS, useClass: StatusInterceptor, multi: true },
+    { provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: { duration: 9500} }
   ],
   bootstrap: [ AppComponent ]
 })
