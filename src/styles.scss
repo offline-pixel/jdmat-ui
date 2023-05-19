@@ -88,6 +88,10 @@ th.mat-header-cell {
     color: rgba(82, 99, 205, 0.7);
 }
 
+.mat-snack-bar-container {
+    max-height: 48px !important;
+    height: 48px !important;
+}
 @media screen and (max-width: 640px) {
     body {
         margin: 15px 0;
@@ -144,3 +148,4 @@ th.mat-header-cell {
         padding: 10px 2px !important;
     }
 }
+

@@ -31,7 +31,7 @@ import {MatSnackBarModule, MAT_SNACK_BAR_DEFAULT_OPTIONS} from '@angular/materia
     ApiService,
     LogicService,
     { provide: HTTP_INTERCEPTORS, useClass: StatusInterceptor, multi: true },
-    { provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: { duration: 9500} }
+    { provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: { duration: 95000} }
   ],
   bootstrap: [ AppComponent ]
 })
